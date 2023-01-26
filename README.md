@@ -3,6 +3,7 @@
 ### Introducción al paralelismo - hilos
 
 ### Trabajo individual o en parejas
+### Julian Castillo & Camilo Cantillo 
 
 Entrega: Martes en el transcurso del día.
 Entregar: Fuentes y documento PDF con las respuestas.
@@ -15,6 +16,8 @@ Entregar: Fuentes y documento PDF con las respuestas.
 	2. Inicie los tres hilos con 'start()'.
 	3. Ejecute y revise la salida por pantalla. 
 	4. Cambie el incio con 'start()' por 'run()'. Cómo cambia la salida?, por qué?.
+	R//: al ejecutar el metodo start() se crean subprocesos que se entiende que va a funcionar como "condición de carrera" o lo que es competir por el procesador,
+   		 con el metodo run() se ejecuta de forma secuencial o en orden ya que se ejecuta un proceso a la vez.
 
 **Parte II Hilos Java**
 
