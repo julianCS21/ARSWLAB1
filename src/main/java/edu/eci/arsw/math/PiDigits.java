@@ -18,7 +18,7 @@ public class PiDigits {
      * @param count The number of digits to return
      * @return An array containing the hexadecimal digits.
      */
-    public static byte[] getDigits(int start, int count, int n) {
+    public static byte[] getDigits(int start, int count) {
 
 
         if (start < 0) {
@@ -47,6 +47,18 @@ public class PiDigits {
         }
 
         return digits;
+    }
+
+
+    public static byte[] getDigits(int start, int count, int n ){
+        byte[] digits = new byte[count];
+
+
+
+
+        return digits;
+
+
     }
 
     /// <summary>

@@ -7,6 +7,26 @@ public class threadDigits extends Thread {
     private static double Epsilon = 1e-17;
 
 
+    private int start;
+
+    private int count;
+
+
+    public threadDigits(int start, int count){
+        this.start = start;
+        this.count = count;
+
+
+    }
+
+
+    @Override
+    public void run(){
+        getDigits(this.start,this.count);
+
+    }
+
+
     /**
      * Returns a range of hexadecimal digits of pi.
      * @param start The starting location of the range.
@@ -105,10 +125,7 @@ public class threadDigits extends Thread {
         return result;
     }
 
-    @Override
-    public void run(){
 
-    }
 
 
 
