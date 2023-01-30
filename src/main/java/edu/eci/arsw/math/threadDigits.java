@@ -11,10 +11,23 @@ public class threadDigits extends Thread {
 
     private int count;
 
+    private byte[] digits;
 
-    public threadDigits(int start, int count){
+    private int partialCount;
+
+
+
+    public threadDigits(int start, int count, byte[] digits, int partialCount){
         this.start = start;
         this.count = count;
+        this.digits = digits;
+        if(start > 1){
+            this.partialCount = partialCount;
+        }
+        else{
+            this.partialCount = start;
+        }
+
 
 
     }
@@ -27,13 +40,21 @@ public class threadDigits extends Thread {
     }
 
 
+    public int getPartialCount() {
+        return partialCount;
+    }
+
+    public void setPartialCount(int partialCount) {
+        this.partialCount = partialCount;
+    }
+
     /**
      * Returns a range of hexadecimal digits of pi.
      * @param start The starting location of the range.
      * @param count The number of digits to return
      * @return An array containing the hexadecimal digits.
      */
-    public static byte[] getDigits(int start, int count) {
+    public void getDigits(int start, int count) {
         if (start < 0) {
             throw new RuntimeException("Invalid Interval");
         }
@@ -42,10 +63,11 @@ public class threadDigits extends Thread {
             throw new RuntimeException("Invalid Interval");
         }
 
-        byte[] digits = new byte[count];
         double sum = 0;
+        int index = start - 1;
+        start = this.partialCount;
+        for (int i = index; i < count; i++) {
 
-        for (int i = 0; i < count; i++) {
             if (i % DigitsPerSum == 0) {
                 sum = 4 * sum(1, start)
                         - 2 * sum(4, start)
@@ -54,12 +76,16 @@ public class threadDigits extends Thread {
 
                 start += DigitsPerSum;
             }
-
             sum = 16 * (sum - Math.floor(sum));
-            digits[i] = (byte) sum;
-        }
 
-        return digits;
+            this.digits[i] = (byte) sum;
+            System.out.println(start);
+
+        }
+        this.partialCount = start;
+
+
+
     }
 
     /// <summary>

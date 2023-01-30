@@ -44,6 +44,7 @@ public class PiDigits {
 
             sum = 16 * (sum - Math.floor(sum));
             digits[i] = (byte) sum;
+            System.out.println(start);
         }
 
         return digits;
@@ -52,13 +53,30 @@ public class PiDigits {
 
     public static byte[] getDigits(int start, int count, int n ){
         byte[] digits = new byte[count];
+        threadDigits[] threads = new threadDigits[n];
+        int increment = count / n;
+        int restIncrement = count % n;
+        int index = start;
+        int limit = increment;
+        int partialCount = 0;
+        for(int i = 0; i < n; i++){
+            try{
+                if(i == digits.length - 1){
+                    limit += restIncrement;
+                }
+                threads[i] = new threadDigits(index,limit,digits,partialCount);
+                threads[i].start();
+                threads[i].join();
+                index += limit;
+                limit += increment;
+                partialCount = threads[i].getPartialCount();
 
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
 
-
-
+        }
         return digits;
-
-
     }
 
     /// <summary>
