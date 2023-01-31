@@ -86,15 +86,11 @@ public class threadDigits extends Thread {
         if (start < 0) {
             throw new RuntimeException("Invalid Interval");
         }
-
         if (count < 0) {
             throw new RuntimeException("Invalid Interval");
         }
-
         double sum = 0;
-        int index = start - 1;
-        for (int i = index; i < count; i++) {
-
+        for (int i = 0; i < count; i++) {
             if (i % DigitsPerSum == 0) {
                 sum = 4 * sum(1, start)
                         - 2 * sum(4, start)
@@ -104,15 +100,8 @@ public class threadDigits extends Thread {
                 start += DigitsPerSum;
             }
             sum = 16 * (sum - Math.floor(sum));
-
-            this.digits[i] = (byte) sum;
-
-
+            digits[i] = (byte) sum;
         }
-
-
-
-
     }
 
     /// <summary>

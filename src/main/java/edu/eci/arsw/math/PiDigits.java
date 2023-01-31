@@ -64,10 +64,9 @@ public class PiDigits {
                 limit += restIncrement;
             }
             threads[i] = new threadDigits(index,limit);
-            threads[i].start();
             index += limit;
             limit += increment;
-
+            threads[i].start();
         }
         for(threadDigits th : threads){
             try{
@@ -76,7 +75,10 @@ public class PiDigits {
                 throw new RuntimeException(e);
             }
         }
-        return digits;
+        for(threadDigits th : threads){
+
+
+        }
     }
 
     /// <summary>
