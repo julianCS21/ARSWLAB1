@@ -1,5 +1,7 @@
 package edu.eci.arsw.math;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 ///  <summary>
 ///  An implementation of the Bailey-Borwein-Plouffe formula for calculating hexadecimal
 ///  digits of pi.
@@ -44,7 +46,6 @@ public class PiDigits {
 
             sum = 16 * (sum - Math.floor(sum));
             digits[i] = (byte) sum;
-            System.out.println(start);
         }
 
         return digits;
@@ -58,23 +59,22 @@ public class PiDigits {
         int restIncrement = count % n;
         int index = start;
         int limit = increment;
-        int partialCount = 0;
         for(int i = 0; i < n; i++){
-            try{
-                if(i == digits.length - 1){
-                    limit += restIncrement;
-                }
-                threads[i] = new threadDigits(index,limit,digits,partialCount);
-                threads[i].start();
-                threads[i].join();
-                index += limit;
-                limit += increment;
-                partialCount = threads[i].getPartialCount();
+            if(i == digits.length - 1) {
+                limit += restIncrement;
+            }
+            threads[i] = new threadDigits(index,limit);
+            threads[i].start();
+            index += limit;
+            limit += increment;
 
+        }
+        for(threadDigits th : threads){
+            try{
+                th.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
         }
         return digits;
     }

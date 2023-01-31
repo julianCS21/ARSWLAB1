@@ -13,20 +13,52 @@ public class threadDigits extends Thread {
 
     private byte[] digits;
 
-    private int partialCount;
 
+    public static int getDigitsPerSum() {
+        return DigitsPerSum;
+    }
 
+    public static void setDigitsPerSum(int digitsPerSum) {
+        DigitsPerSum = digitsPerSum;
+    }
 
-    public threadDigits(int start, int count, byte[] digits, int partialCount){
+    public static double getEpsilon() {
+        return Epsilon;
+    }
+
+    public static void setEpsilon(double epsilon) {
+        Epsilon = epsilon;
+    }
+
+    public int getStart() {
+        return start;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public byte[] getDigits() {
+        return digits;
+    }
+
+    public void setDigits(byte[] digits) {
+        this.digits = digits;
+    }
+
+    public threadDigits(int start, int count){
         this.start = start;
         this.count = count;
-        this.digits = digits;
-        if(start > 1){
-            this.partialCount = partialCount;
-        }
-        else{
-            this.partialCount = start;
-        }
+        digits = new byte[count];
+
 
 
 
@@ -40,13 +72,9 @@ public class threadDigits extends Thread {
     }
 
 
-    public int getPartialCount() {
-        return partialCount;
-    }
 
-    public void setPartialCount(int partialCount) {
-        this.partialCount = partialCount;
-    }
+
+
 
     /**
      * Returns a range of hexadecimal digits of pi.
@@ -65,7 +93,6 @@ public class threadDigits extends Thread {
 
         double sum = 0;
         int index = start - 1;
-        start = this.partialCount;
         for (int i = index; i < count; i++) {
 
             if (i % DigitsPerSum == 0) {
@@ -79,10 +106,10 @@ public class threadDigits extends Thread {
             sum = 16 * (sum - Math.floor(sum));
 
             this.digits[i] = (byte) sum;
-            System.out.println(start);
+
 
         }
-        this.partialCount = start;
+
 
 
 
