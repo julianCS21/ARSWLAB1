@@ -1,5 +1,8 @@
 package edu.eci.arsw.math;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 ///  <summary>
@@ -43,7 +46,6 @@ public class PiDigits {
 
                 start += DigitsPerSum;
             }
-            System.out.println(i);
             sum = 16 * (sum - Math.floor(sum));
             digits[i] = (byte) sum;
         }
@@ -52,42 +54,45 @@ public class PiDigits {
     }
 
 
-    public static byte[] getDigits(int start, int count, int n ){
+    public static byte[] getDigits(int start, int count, int n ) throws InterruptedException, IOException {
         byte[] digits = new byte[count];
-        threadDigits[] threads = new threadDigits[n];
+        ArrayList<threadDigits> threads = new ArrayList<>();
         int increment = count / n;
         int restIncrement = count % n;
-        int index = start;
-        int limit = increment;
+        int finish = increment;
+        //creacion de hilos
+
         for(int i = 0; i < n; i++){
-            if(i == digits.length - 1) {
-                limit += restIncrement;
+            if(i == n-1){
+                increment += restIncrement;
+                finish = increment;
             }
-            threads[i] = new threadDigits(index,limit);
-            threads[i].start();
-            index += limit;
-            limit += increment;
+            threads.add(new threadDigits(start,finish));
+            start += increment;
         }
+        //iniciar hilos
+
         for(threadDigits th : threads){
-            try{
-                th.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            th.start();
         }
 
-        int init = 0;
-        for(threadDigits th : threads){
-            int partial = 0;
-            byte[] list = th.getDigits();
-            for(int i = init; i < list.length;i++){
-                digits[i] = list[i];
-                partial = i;
 
-            }
-            init = partial + 1;
+        //esperar al hijo main
+        for(threadDigits th : threads){
+            th.join();
         }
-        return digits;
+
+        //resultado
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
+        for (threadDigits th : threads) {
+            outputStream.write(th.getDigits());
+        }
+        return outputStream.toByteArray();
+
+
+
+
     }
 
     /// <summary>

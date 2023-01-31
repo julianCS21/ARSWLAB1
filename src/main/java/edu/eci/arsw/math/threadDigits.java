@@ -57,7 +57,7 @@ public class threadDigits extends Thread {
     public threadDigits(int start, int count){
         this.start = start;
         this.count = count;
-        digits = new byte[count];
+
 
 
 
@@ -67,7 +67,7 @@ public class threadDigits extends Thread {
 
     @Override
     public void run(){
-        getDigits(this.start,this.count);
+        digits = getDigits(this.start,this.count);
 
     }
 
@@ -82,15 +82,20 @@ public class threadDigits extends Thread {
      * @param count The number of digits to return
      * @return An array containing the hexadecimal digits.
      */
-    public void getDigits(int start, int count) {
+    public static byte[] getDigits(int start, int count) {
+
         if (start < 0) {
             throw new RuntimeException("Invalid Interval");
         }
+
         if (count < 0) {
             throw new RuntimeException("Invalid Interval");
         }
+
+        byte[] digits = new byte[count];
         double sum = 0;
-        for (int i = start - 1 ; i < count; i++) {
+
+        for (int i = 0; i < count; i++) {
             if (i % DigitsPerSum == 0) {
                 sum = 4 * sum(1, start)
                         - 2 * sum(4, start)
@@ -99,10 +104,11 @@ public class threadDigits extends Thread {
 
                 start += DigitsPerSum;
             }
-            System.out.println(i);
             sum = 16 * (sum - Math.floor(sum));
             digits[i] = (byte) sum;
         }
+
+        return digits;
     }
 
     /// <summary>

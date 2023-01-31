@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.math;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -13,11 +14,11 @@ import java.util.Arrays;
  */
 public class Main {
 
-    public static void main(String a[]) {
+    public static void main(String a[]) throws InterruptedException, IOException {
         //System.out.println(bytesToHex(PiDigits.getDigits(0, 10)));
-        System.out.println(bytesToHex(PiDigits.getDigits(1, 10)));
+        System.out.println(bytesToHex(PiDigits.getDigits(1, 100)));
         //System.out.println(bytesToHex(PiDigits.getDigits(1, 1000000)));
-        System.out.println(bytesToHex(PiDigits.getDigits(1,10,2)));
+        System.out.println(bytesToHex(PiDigits.getDigits(1,100,3)));
 
 
 
