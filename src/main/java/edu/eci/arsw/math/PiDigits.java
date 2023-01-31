@@ -43,7 +43,7 @@ public class PiDigits {
 
                 start += DigitsPerSum;
             }
-
+            System.out.println(i);
             sum = 16 * (sum - Math.floor(sum));
             digits[i] = (byte) sum;
         }
@@ -64,9 +64,9 @@ public class PiDigits {
                 limit += restIncrement;
             }
             threads[i] = new threadDigits(index,limit);
+            threads[i].start();
             index += limit;
             limit += increment;
-            threads[i].start();
         }
         for(threadDigits th : threads){
             try{
@@ -75,10 +75,19 @@ public class PiDigits {
                 throw new RuntimeException(e);
             }
         }
+
+        int init = 0;
         for(threadDigits th : threads){
+            int partial = 0;
+            byte[] list = th.getDigits();
+            for(int i = init; i < list.length;i++){
+                digits[i] = list[i];
+                partial = i;
 
-
+            }
+            init = partial + 1;
         }
+        return digits;
     }
 
     /// <summary>

@@ -90,7 +90,7 @@ public class threadDigits extends Thread {
             throw new RuntimeException("Invalid Interval");
         }
         double sum = 0;
-        for (int i = 0; i < count; i++) {
+        for (int i = start - 1 ; i < count; i++) {
             if (i % DigitsPerSum == 0) {
                 sum = 4 * sum(1, start)
                         - 2 * sum(4, start)
@@ -99,6 +99,7 @@ public class threadDigits extends Thread {
 
                 start += DigitsPerSum;
             }
+            System.out.println(i);
             sum = 16 * (sum - Math.floor(sum));
             digits[i] = (byte) sum;
         }
