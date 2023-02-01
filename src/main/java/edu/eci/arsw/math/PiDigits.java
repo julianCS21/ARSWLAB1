@@ -77,7 +77,7 @@ public class PiDigits {
         }
 
 
-        //esperar al hijo main
+        //esperar al hilo main
         for(threadDigits th : threads){
             th.join();
         }

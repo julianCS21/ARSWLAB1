@@ -16,9 +16,17 @@ public class Main {
 
     public static void main(String a[]) throws InterruptedException, IOException {
         //System.out.println(bytesToHex(PiDigits.getDigits(0, 10)));
-        System.out.println(bytesToHex(PiDigits.getDigits(1, 100)));
-        //System.out.println(bytesToHex(PiDigits.getDigits(1, 1000000)));
-        System.out.println(bytesToHex(PiDigits.getDigits(1,100,3)));
+        //System.out.println(bytesToHex(PiDigits.getDigits(1, 100)));
+        long startTime = System.currentTimeMillis();
+
+        byte[] digits = PiDigits.getDigits(0, 100000, 1);
+
+        long endTime = System.currentTimeMillis();
+
+        long executionTime = endTime - startTime;
+
+        System.out.println("Execution time (milliseconds): " + executionTime);
+
 
 
 
