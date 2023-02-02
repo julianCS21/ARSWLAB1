@@ -56,17 +56,23 @@ Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tie
 
 ![image](https://user-images.githubusercontent.com/108955358/215938549-4d1630ae-9f4a-40af-9861-b40499688b00.png)
 
-
+El ejercicio se realizo con 100.000 hilos ya que el tiempo de espera se hizo muy extenso al usarlo con 1.000.000 y nos parecío más practico realizarlo con esa cantidad.
 
 
 1. Según la [ley de Amdahls](https://www.pugetsystems.com/labs/articles/Estimating-CPU-Performance-using-Amdahls-Law-619/#WhatisAmdahlsLaw?):
 
 	![](img/ahmdahls.png), donde _S(n)_ es el mejoramiento teórico del desempeño, _P_ la fracción paralelizable del algoritmo, y _n_ el número de hilos, a mayor _n_, mayor debería ser dicha mejora. Por qué el mejor desempeño no se logra con los 500 hilos?, cómo se compara este desempeño cuando se usan 200?. 
+	
+R//: Este rendimiento se ve afectado por la cantidad de nucleos, aunque se tenga un numero enorme de hilos el resultado se va a limitar por el número de nucleos del computador.
 
 2. Cómo se comporta la solución usando tantos hilos de procesamiento como núcleos comparado con el resultado de usar el doble de éste?.
 
+R//: El rendimiento es mejor con el doble, que con el número de núcleos del pc.
+
 3. De acuerdo con lo anterior, si para este problema en lugar de 500 hilos en una sola CPU se pudiera usar 1 hilo en cada una de 500 máquinas hipotéticas, la ley de Amdahls se aplicaría mejor?. Si en lugar de esto se usaran c hilos en 500/c máquinas distribuidas (siendo c es el número de núcleos de dichas máquinas), se mejoraría?. Explique su respuesta.
 
+R//: En ese caso no se aplica la ley ya que todas las maquinas estarían corriendo ese hilo al mismo tiempo, como tipo "paralelismo" por lo tanto no se mejoraria, por cada computador se manda un cálculo y no se esta aprovechando los procesadores del computador.
+En el segundo caso mejoraría la capacidad de ejecución ya que se estan usando tantos hilos como computadores para hacer el cálculo teniendo en cuenta que se van a usar tantos hilos como núcleos.
 
 
 #### Criterios de evaluación.
